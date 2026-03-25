@@ -6,7 +6,7 @@
     <title>Our Memories - For Her</title>
 
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
       :root {
@@ -90,20 +90,22 @@
     <div class="instructions">
       <h1>FOR YOU</h1>
       <p>
-        Allow camera access, then point your phone at a Hiro marker.
-        Move around the marker to view all memories in AR.
+        Allow camera access, then point your phone at your selected notebook image.
+        Keep the image visible until tracking starts.
       </p>
     </div>
 
     <div class="tip">
-      Marker mode enabled. Print or show a standard Hiro marker before opening this page.
+      No Hiro marker needed. This is image-target AR (Classmate-style flow).
     </div>
 
     <a-scene
       embedded
       renderer="antialias: true; alpha: true"
       vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;"
+      color-space="sRGB"
+      mindar-image="imageTargetSrc: assets/targets.mind; autoStart: true; uiScanning: yes; uiLoading: yes;"
+      device-orientation-permission-ui="enabled: true"
     >
       <a-assets>
         <img id="m1" src="assets/memory-01.jpg" alt="Memory 1" />
@@ -114,7 +116,7 @@
         <img id="m6" src="assets/memory-06.jpg" alt="Memory 6" />
       </a-assets>
 
-      <a-marker preset="hiro" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
+      <a-entity mindar-image-target="targetIndex: 0">
         <a-entity position="0 1.25 0">
           <a-text
             value="I AM SORRY"
@@ -252,9 +254,9 @@
 
         <a-entity light="type: ambient; intensity: 0.95; color: #ffffff"></a-entity>
         <a-entity light="type: directional; intensity: 0.55; color: #ffd17a" position="0.5 2 0.8"></a-entity>
-      </a-marker>
+      </a-entity>
 
-      <a-entity camera></a-entity>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
     </a-scene>
   </body>
 </html>
