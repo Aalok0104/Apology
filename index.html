@@ -39,6 +39,18 @@
           console.error(err);
         }
       }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const scene = document.querySelector("a-scene");
+        if (!scene) return;
+
+        scene.addEventListener("loaded", () => {
+          if (scene.renderer) {
+            scene.renderer.setClearColor(0x000000, 0);
+          }
+          scene.object3D.background = null;
+        });
+      });
     </script>
 
     <style>
@@ -78,6 +90,11 @@
         position: fixed;
         inset: 0;
         z-index: 1;
+        background: transparent !important;
+      }
+
+      #arOverlay canvas {
+        background: transparent !important;
       }
 
       .instructions {
@@ -186,7 +203,6 @@
       embedded
       renderer="antialias: true; alpha: true"
       vr-mode-ui="enabled: false"
-      background="color: transparent"
       device-orientation-permission-ui="enabled: true"
     >
       <a-assets>
